@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Workfloow · Brief № 01 / 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  /* Font override — Geist replaces Canva Sans (free, SIL OFL via Google Fonts) */
+  :root {
+    --font-display: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, Menlo, monospace;
+  }
+
+  /* =====================================================
+     VARIANT A — "Brief"
+     A consultant's published brief. Warm near-black,
+     cream type, one cadmium-rust accent. Editorial.
+     ===================================================== */
+  :root {
+    --paper: #0F0D0A;        /* page */
+    --paper-lift: #15120E;   /* very subtle band */
+    --ink: #F2EBDD;          /* text */
+    --ink-mute: #8A847A;     /* secondary */
+    --ink-quiet: #5A554D;    /* tertiary, captions */
+    --rule: #2A2620;         /* hairline */
+    --rule-bold: #3A352D;
+    --accent: #E85A2B;       /* cadmium / rust — only hot color */
+    --accent-soft: rgba(232, 90, 43, 0.10);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--paper); color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; }
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  /* ----------- Grid system ----------- */
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  .grid12 { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; }
+
+  /* ----------- Typography ----------- */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  .display-xl { font-size: clamp(3.6rem, 12vw, 11rem); }
+  .display-lg { font-size: clamp(3rem, 8vw, 7rem); }
+  .display-md { font-size: clamp(2.2rem, 5.6vw, 4.5rem); }
+
+  .accent { color: var(--accent); }
+  .accent-soft { color: var(--ink-mute); }
+
+  .micro {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-mute);
+    text-wrap: pretty;
+  }
+
+  /* hairline rule used as section divider */
+  .rule { height: 1px; background: var(--rule); border: 0; }
+  .rule-thick { height: 1px; background: var(--rule-bold); border: 0; }
+
+  /* ----------- Header ----------- */
+  .head-wrap {
+    position: sticky; top: 0; z-index: 50;
+    background: linear-gradient(180deg, var(--paper) 65%, transparent);
+    padding-top: 8px;
+  }
+  .head {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 18px 0 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mark {
+    display: inline-flex; align-items: baseline; gap: 2px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 22px; letter-spacing: -0.025em;
+  }
+  .mark .o {
+    color: var(--accent);
+    display: inline-block;
+    width: 0.55em; height: 0.55em; border-radius: 50%;
+    border: 2px solid var(--accent);
+    margin: 0 0.04em;
+    transform: translateY(-0.05em);
+  }
+  .head-nav {
+    display: flex; justify-content: center; gap: 32px;
+    font-size: 13px; color: var(--ink-mute);
+  }
+  .head-nav a { transition: color 160ms ease; }
+  .head-nav a:hover { color: var(--ink); }
+  .head-right {
+    display: flex; justify-content: flex-end; align-items: center; gap: 20px;
+  }
+  .lang { display: inline-flex; gap: 0; }
+  .lang button {
+    appearance: none; background: transparent; border: 0;
+    font: 600 11px var(--font-body); letter-spacing: 0.18em;
+    color: var(--ink-quiet); padding: 6px 8px;
+    cursor: pointer;
+    transition: color 160ms ease;
+  }
+  .lang button.is-active { color: var(--accent); }
+  .lang button:hover { color: var(--ink); }
+  .lang span { color: var(--rule-bold); padding: 6px 0; font-size: 11px; }
+  .talk-link {
+    font-size: 13px; color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: color 160ms ease;
+  }
+  .talk-link:hover { color: var(--accent); }
+  @media (max-width: 820px) {
+    .head-nav { display: none; }
+    .head { grid-template-columns: 1fr auto; }
+  }
+
+  /* ----------- Section scaffolding ----------- */
+  section { padding: 120px 0; }
+  .section-meta {
+    display: flex; gap: 32px; align-items: baseline;
+    margin-bottom: 48px;
+    color: var(--ink-quiet);
+  }
+  .section-meta .sec-num {
+    font-family: var(--font-display); font-weight: 500; font-size: 14px;
+    color: var(--accent); letter-spacing: 0.04em;
+  }
+  .section-meta .sec-name {
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+
+  /* ----------- Hero ----------- */
+  .hero { padding: 80px 0 140px; position: relative; }
+  .hero-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    margin-bottom: 80px;
+    color: var(--ink-quiet);
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .hero h1 {
+    margin: 0 0 60px;
+    grid-column: 1 / -1;
+  }
+  .hero h1 .line { display: block; }
+  .hero h1 .line.indent { padding-left: 22vw; }
+  .hero h1 .line.indent-2 { padding-left: 10vw; }
+  @media (max-width: 800px) {
+    .hero h1 .line.indent { padding-left: 8vw; }
+    .hero h1 .line.indent-2 { padding-left: 4vw; }
+  }
+  .hero-bottom {
+    display: grid; grid-template-columns: 6fr 5fr; gap: 80px;
+    align-items: end;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+  }
+  @media (max-width: 800px) { .hero-bottom { grid-template-columns: 1fr; gap: 32px; } }
+  .hero-actions { display: flex; flex-direction: column; gap: 4px; }
+
+  /* ---- Direct-CTA hero variant (centered, coda-style) ---- */
+  .hero.hero-cta { padding: 80px 0 160px; text-align: center; }
+  .hero.hero-cta .hero-meta {
+    justify-content: center;
+    margin-bottom: 120px;
+  }
+  .hero.hero-cta .hero-meta span:first-child::after {
+    content: "·"; margin: 0 28px; color: var(--rule-bold);
+  }
+  .hero-stack {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 56px;
+    max-width: 22ch; margin: 0 auto;
+  }
+  .hero-stack h1 {
+    margin: 0;
+    grid-column: auto;
+    text-wrap: balance;
+    line-height: 0.92;
+  }
+  .hero-stack h1 em {
+    font-style: italic;
+    /* sit on its own line for breathing room */
+    display: block;
+    line-height: 0.92;
+  }
+  .hero-cta-link {
+    font-size: clamp(1.5rem, 3vw, 2.6rem) !important;
+  }
+  .hero.hero-cta .signoff {
+    display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
+    color: var(--ink-quiet); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .hero.hero-cta .signoff span:first-child::after {
+    content: "·"; margin: 0 28px; color: var(--rule-bold);
+  }
+  @media (max-width: 600px) {
+    .hero.hero-cta .hero-meta { flex-direction: column; gap: 6px; }
+    .hero.hero-cta .hero-meta span:first-child::after { display: none; }
+    .hero.hero-cta .signoff { flex-direction: column; gap: 8px; }
+    .hero.hero-cta .signoff span:first-child::after { display: none; }
+  }
+  .text-link {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    color: var(--ink); letter-spacing: -0.02em;
+    line-height: 1.3;
+    transition: color 160ms ease, transform 220ms cubic-bezier(.2,.7,.3,1);
+    width: max-content;
+  }
+  .text-link .arr {
+    color: var(--accent);
+    transition: transform 220ms cubic-bezier(.2,.7,.3,1);
+  }
+  .text-link:hover { color: var(--accent); }
+  .text-link:hover .arr { transform: translateX(8px); }
+  .text-link.secondary {
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--ink-mute);
+  }
+  .text-link.secondary:hover { color: var(--ink); }
+
+  /* corner index marks */
+  .colophon {
+    position: absolute; left: 40px; top: 200px;
+    writing-mode: vertical-rl;
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  @media (max-width: 1080px) { .colophon { display: none; } }
+
+  /* ----------- Problem section ----------- */
+  .problem h2 { margin: 0 0 64px; grid-column: 3 / -1; }
+  @media (max-width: 800px) { .problem h2 { grid-column: 1 / -1; } }
+
+  .pain-list {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 800px) { .pain-list { grid-template-columns: 1fr; } }
+  .pain {
+    padding: 32px 24px 32px 0;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .pain:last-child { border-right: 0; }
+  @media (max-width: 800px) { .pain { border-right: 0; border-bottom: 1px solid var(--rule); } .pain:last-child { border-bottom: 0; } }
+  .pain .pn {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 16px; color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .pain h4 {
+    margin: 0 0 12px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.35rem, 1.8vw, 1.65rem); letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .pain p { margin: 0; color: var(--ink-mute); font-size: 15.5px; }
+
+  .bridge {
+    margin-top: 80px;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+    padding-top: 64px;
+  }
+  .bridge .bigword {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -0.03em;
+  }
+  .bridge .bigword .accent { font-style: italic; }
+
+  /* ----------- Services TOC ----------- */
+  .services h2 { margin: 0 0 56px; grid-column: 1 / 9; }
+  @media (max-width: 800px) { .services h2 { grid-column: 1 / -1; } }
+
+  .toc {
+    border-top: 1px solid var(--rule-bold);
+  }
+  .toc-row {
+    display: grid; grid-template-columns: 70px 1fr 1fr 24px;
+    align-items: baseline;
+    padding: 36px 0 32px;
+    border-bottom: 1px solid var(--rule);
+    column-gap: 32px;
+    cursor: pointer;
+    transition: background 200ms ease, padding 220ms cubic-bezier(.2,.7,.3,1);
+  }
+  .toc-row:hover { background: linear-gradient(90deg, var(--accent-soft), transparent 60%); padding-left: 12px; padding-right: 12px; }
+  .toc-row:hover .toc-num { color: var(--accent); }
+  .toc-row:hover .toc-go { color: var(--accent); transform: translateX(4px); }
+  .toc-num {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2.5rem, 4vw, 3.6rem);
+    color: var(--ink-quiet); line-height: 1;
+    letter-spacing: -0.02em;
+    transition: color 200ms ease;
+  }
+  .toc-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .toc-body { color: var(--ink-mute); font-size: 16px; }
+  .toc-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 14px; color: var(--ink-quiet); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .toc-go {
+    color: var(--ink-quiet);
+    transition: color 200ms ease, transform 220ms cubic-bezier(.2,.7,.3,1);
+    font-size: 24px; line-height: 1;
+  }
+  @media (max-width: 800px) {
+    .toc-row { grid-template-columns: 48px 1fr; row-gap: 8px; }
+    .toc-go { display: none; }
+    .toc-body { grid-column: 1 / -1; }
+  }
+
+  /* ----------- Process (vertical timeline w/ big numerals) ----------- */
+  .process h2 { margin: 0 0 24px; grid-column: 1 / 9; }
+  .process-sub { grid-column: 1 / 8; color: var(--ink-mute); margin-bottom: 64px; }
+  @media (max-width: 800px) { .process h2, .process-sub { grid-column: 1 / -1; } }
+
+  .steps {
+    border-top: 1px solid var(--rule-bold);
+  }
+  .step-row {
+    display: grid; grid-template-columns: 140px 1fr 220px;
+    align-items: start;
+    padding: 48px 0 44px;
+    border-bottom: 1px solid var(--rule);
+    column-gap: 48px;
+  }
+  @media (max-width: 800px) { .step-row { grid-template-columns: 60px 1fr; row-gap: 10px; } .step-meta { grid-column: 2 / -1; } }
+  .step-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 0.85; letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .step-num .dot {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--accent); margin-left: 6px;
+    vertical-align: top; margin-top: 0.6em;
+  }
+  .step-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.5rem, 2.2vw, 2rem); letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .step-body { color: var(--ink-mute); font-size: 16px; max-width: 540px; }
+  .step-meta { color: var(--ink-quiet); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; }
+  @media (max-width: 800px) { .step-meta { text-align: left; } }
+
+  /* ----------- Workflow showcase ----------- */
+  .workflow h2 { margin: 0 0 24px; grid-column: 1 / 10; }
+  .workflow-sub { grid-column: 1 / 9; color: var(--ink-mute); margin-bottom: 56px; }
+  @media (max-width: 800px) { .workflow h2, .workflow-sub { grid-column: 1 / -1; } }
+
+  .wf-stage {
+    position: relative;
+    padding: 56px 36px 40px;
+    background: var(--paper-lift);
+    border: 1px solid var(--rule);
+  }
+  .wf-stage .wf-corner {
+    position: absolute; top: 16px; left: 20px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .wf-stage .wf-corner-r {
+    position: absolute; top: 16px; right: 20px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .wf-stage .wf-corner-r::before {
+    content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent); margin-right: 8px; vertical-align: 1px;
+  }
+  .wf-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 920px) {
+    .wf-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  .wf-node {
+    background: var(--paper);
+    border: 1px solid var(--rule-bold);
+    padding: 22px 18px 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative;
+    min-height: 132px;
+  }
+  .wf-node.is-ai {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, rgba(232,90,43,0.06), transparent);
+  }
+  .wf-node .stamp {
+    position: absolute; top: 10px; right: 12px;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .wf-node.is-ai .stamp { color: var(--accent); }
+  .wf-node .ico {
+    width: 32px; height: 32px; border: 1px solid var(--rule-bold);
+    display: grid; place-items: center;
+    color: var(--ink);
+  }
+  .wf-node.is-ai .ico { border-color: var(--accent); color: var(--accent); }
+  .wf-node .nm {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 19px; letter-spacing: -0.02em;
+    margin-top: 4px;
+  }
+  .wf-node .kn { font-size: 12px; color: var(--ink-mute); letter-spacing: 0.04em; }
+
+  .wf-connectors {
+    position: absolute; inset: 56px 36px 40px;
+    pointer-events: none; z-index: 1;
+  }
+  @media (max-width: 920px) { .wf-connectors { display: none; } }
+
+  .wf-caption {
+    margin-top: 28px;
+    color: var(--ink-quiet);
+    font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .wf-caption strong { color: var(--ink); font-weight: 600; }
+
+  /* ----------- Why (huge stats) ----------- */
+  .why h2 { margin: 0 0 64px; grid-column: 3 / -1; }
+  @media (max-width: 800px) { .why h2 { grid-column: 1 / -1; } }
+
+  .why-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--rule-bold);
+  }
+  @media (max-width: 800px) { .why-stats { grid-template-columns: 1fr; } }
+  .stat {
+    padding: 44px 28px 36px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: 0; }
+  @media (max-width: 800px) { .stat { border-right: 0; border-bottom: 1px solid var(--rule); } .stat:last-child { border-bottom: 0; } }
+  .stat .stat-cap {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-quiet); margin-bottom: 16px;
+  }
+  .stat .stat-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem); letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 16px;
+  }
+  .stat .stat-title em {
+    font-style: italic; color: var(--accent);
+  }
+  .stat p { margin: 0; color: var(--ink-mute); font-size: 15.5px; }
+
+  /* ----------- Coda / CTA ----------- */
+  .coda { padding: 160px 0 140px; text-align: center; border-top: 1px solid var(--rule); }
+  .coda .micro { margin-bottom: 32px; }
+  .coda h2 {
+    margin: 0 auto 28px;
+    max-width: 16ch;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    letter-spacing: -0.04em; line-height: 0.95;
+    text-wrap: balance;
+  }
+  .coda .text-link { font-size: clamp(1.5rem, 3vw, 2.4rem); }
+  .coda .signoff {
+    margin-top: 56px;
+    display: flex; justify-content: center; gap: 32px;
+    color: var(--ink-quiet); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .coda .signoff span:first-child::after {
+    content: "·"; margin-left: 32px; color: var(--rule-bold);
+  }
+
+  /* ----------- Footer ----------- */
+  footer { border-top: 1px solid var(--rule); padding: 56px 0 40px; }
+  .foot {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 800px) { .foot { grid-template-columns: 1fr 1fr; gap: 32px; } }
+  .foot h5 { margin: 0 0 16px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-quiet); font-weight: 600; }
+  .foot a { display: block; padding: 6px 0; font-size: 14px; color: var(--ink-mute); transition: color 160ms ease; }
+  .foot a:hover { color: var(--accent); }
+  .foot .tagline { color: var(--ink-mute); font-size: 14px; margin-top: 12px; max-width: 24ch; }
+  .foot-base {
+    margin-top: 56px;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .foot-base .socials { display: flex; gap: 18px; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Banner above hero — printed-document feel */
+  .banner {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+    overflow: hidden;
+  }
+  .banner-track {
+    display: flex; gap: 56px;
+    animation: scroll 60s linear infinite;
+    white-space: nowrap;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--ink-quiet);
+  }
+  .banner-track span::before {
+    content: "✦"; color: var(--accent); margin-right: 14px;
+  }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="head-wrap">
+  <div class="wrap">
+    <div class="head">
+      <a href="#" class="mark">Workfl<span class="o"></span><span class="o"></span>w</a>
+      <nav class="head-nav">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#process" data-i18n="nav.how">Process</a>
+        <a href="#workflow" data-i18n="nav.workflow">Cases</a>
+        <a href="#why" data-i18n="nav.why">Practice</a>
+      </nav>
+      <div class="head-right">
+        <div class="lang" role="group" aria-label="Language">
+          <button data-lang="en" class="is-active">EN</button>
+          <span>/</span>
+          <button data-lang="tr">TR</button>
+        </div>
+        <a href="mailto:hello@workfloow.studio" class="talk-link">hello@workfloow.studio</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO — direct CTA, editorial -->
+<section class="hero hero-cta">
+  <div class="wrap">
+
+    <div class="colophon" data-i18n="hero.colophon">BRIEF № 01 / 2026 · WORKFLOOW PRACTICE</div>
+
+    <div class="hero-meta">
+      <span data-i18n="hero.metaL">An AI workflow consultancy</span>
+      <span data-i18n="hero.metaR">Established 2024 · Available globally</span>
+    </div>
+
+    <div class="hero-stack">
+      <h1 class="display display-xl" data-i18n-html="cta.title"><em class="accent">İş akışınızı</em> otomatikleştirmeye hazır mısınız?</h1>
+      <a href="mailto:hello@workfloow.studio" class="text-link hero-cta-link">
+        <span data-i18n="cta.btn">Keşif görüşmesi planla</span>
+        <span class="arr">→</span>
+      </a>
+      <div class="signoff">
+        <span data-i18n="coda.sig1">30 dakika · ücretsiz</span>
+        <span data-i18n="coda.sig2">hello@workfloow.studio</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Marquee banner — capabilities -->
+<div class="banner">
+  <div class="banner-track">
+    <span data-i18n="banner.1">Process audit</span>
+    <span data-i18n="banner.2">Workflow design</span>
+    <span data-i18n="banner.3">CRM & ERP integration</span>
+    <span data-i18n="banner.4">LLM orchestration</span>
+    <span data-i18n="banner.5">Custom agents</span>
+    <span data-i18n="banner.6">Team enablement</span>
+    <span data-i18n="banner.1">Process audit</span>
+    <span data-i18n="banner.2">Workflow design</span>
+    <span data-i18n="banner.3">CRM & ERP integration</span>
+    <span data-i18n="banner.4">LLM orchestration</span>
+    <span data-i18n="banner.5">Custom agents</span>
+    <span data-i18n="banner.6">Team enablement</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="wrap grid12">
+    <div class="section-meta" style="grid-column: 1 / -1;">
+      <span class="sec-num">§ 01</span>
+      <span class="sec-name" data-i18n="problem.eyebrow">The problem</span>
+    </div>
+    <h2 class="display display-lg" data-i18n="problem.title">Your teams are drowning in manual tasks.</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="pain-list">
+      <div class="pain reveal">
+        <div class="pn">i.</div>
+        <h4 data-i18n="pain1.title">Disconnected tools</h4>
+        <p data-i18n="pain1.body">CRM, ERP, communications, documents, dashboards — none of them talk. Every handoff is a person moving data around in their head.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="pn">ii.</div>
+        <h4 data-i18n="pain2.title">Repetitive manual work</h4>
+        <p data-i18n="pain2.body">The same triage, the same reports, the same status updates — written by hand, every week, by people who could be doing better work.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="pn">iii.</div>
+        <h4 data-i18n="pain3.title">No AI strategy</h4>
+        <p data-i18n="pain3.body">Pilots that never ship. Tools bought but never adopted. A board asking for an AI plan you don't have time to write.</p>
+      </div>
+    </div>
+
+    <div class="bridge reveal">
+      <p class="bigword" data-i18n-html="problem.solution">Workfloow <em class="accent">fixes this.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap grid12">
+    <div class="section-meta" style="grid-column: 1 / -1;">
+      <span class="sec-num">§ 02</span>
+      <span class="sec-name" data-i18n="svc.eyebrow">What we do</span>
+    </div>
+    <h2 class="display display-lg" data-i18n="svc.title">Three engagements. End-to-end.</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="toc">
+      <a href="#" class="toc-row">
+        <div class="toc-num">01</div>
+        <div>
+          <div class="toc-title" data-i18n="svc1.title">AI Workflow Design</div>
+          <div class="toc-tags">
+            <span data-i18n="svc1.t1">Process mapping</span>
+            <span>·</span>
+            <span data-i18n="svc1.t2">Opportunity audit</span>
+            <span>·</span>
+            <span data-i18n="svc1.t3">Architecture</span>
+          </div>
+        </div>
+        <p class="toc-body" data-i18n="svc1.body">We map your processes end-to-end and design intelligent automations around the work your team actually does — not the idealised version on the org chart.</p>
+        <div class="toc-go">→</div>
+      </a>
+      <a href="#" class="toc-row">
+        <div class="toc-num">02</div>
+        <div>
+          <div class="toc-title" data-i18n="svc2.title">Tool Integration</div>
+          <div class="toc-tags">
+            <span data-i18n="svc2.t1">CRM / ERP</span>
+            <span>·</span>
+            <span data-i18n="svc2.t2">LLM orchestration</span>
+            <span>·</span>
+            <span data-i18n="svc2.t3">Custom APIs</span>
+          </div>
+        </div>
+        <p class="toc-body" data-i18n="svc2.body">Connect your CRM, ERP, communications tools and AI models into one flow. We work tool-agnostically — pick what fits, integrate what you already own.</p>
+        <div class="toc-go">→</div>
+      </a>
+      <a href="#" class="toc-row">
+        <div class="toc-num">03</div>
+        <div>
+          <div class="toc-title" data-i18n="svc3.title">Implementation &amp; Training</div>
+          <div class="toc-tags">
+            <span data-i18n="svc3.t1">Build &amp; deploy</span>
+            <span>·</span>
+            <span data-i18n="svc3.t2">Team enablement</span>
+            <span>·</span>
+            <span data-i18n="svc3.t3">Ongoing support</span>
+          </div>
+        </div>
+        <p class="toc-body" data-i18n="svc3.body">We build it, deploy it, train your team. Documentation, runbooks and a handover plan so the system survives the consultants leaving.</p>
+        <div class="toc-go">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap grid12">
+    <div class="section-meta" style="grid-column: 1 / -1;">
+      <span class="sec-num">§ 03</span>
+      <span class="sec-name" data-i18n="how.eyebrow">The process</span>
+    </div>
+    <h2 class="display display-lg" data-i18n="how.title">Four steps.</h2>
+    <p class="lede process-sub" data-i18n="how.sub">Most engagements move from audit to launch in 6–12 weeks. No 18-month transformation programmes.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="steps">
+      <div class="step-row reveal">
+        <div class="step-num">01<span class="dot"></span></div>
+        <div>
+          <h3 class="step-title" data-i18n="step1.title">Audit</h3>
+          <p class="step-body" data-i18n="step1.body">We sit with your team for a week, shadowing workflows, reading docs, watching screens. Output: a written brief of every workflow worth automating, ranked by ROI.</p>
+        </div>
+        <div class="step-meta" data-i18n="step1.meta">Week 1 · On-site</div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">02<span class="dot"></span></div>
+        <div>
+          <h3 class="step-title" data-i18n="step2.title">Design</h3>
+          <p class="step-body" data-i18n="step2.body">You get an architecture diagram, an ROI model, and a build plan you can sign off. We agree on what ships first, what comes later, what we don't build.</p>
+        </div>
+        <div class="step-meta" data-i18n="step2.meta">Weeks 2–3 · Remote</div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">03<span class="dot"></span></div>
+        <div>
+          <h3 class="step-title" data-i18n="step3.title">Build</h3>
+          <p class="step-body" data-i18n="step3.body">Integrations and AI agents ship in iterations. Working demo at the end of every week. You see progress, not slides.</p>
+        </div>
+        <div class="step-meta" data-i18n="step3.meta">Weeks 3–9 · Iterative</div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-num">04<span class="dot"></span></div>
+        <div>
+          <h3 class="step-title" data-i18n="step4.title">Launch</h3>
+          <p class="step-body" data-i18n="step4.body">Hands-on training, runbooks, and 90 days of guarded launch with our team on call. Then you own it.</p>
+        </div>
+        <div class="step-meta" data-i18n="step4.meta">Weeks 10+ · Handover</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW SHOWCASE -->
+<section class="workflow" id="workflow">
+  <div class="wrap grid12">
+    <div class="section-meta" style="grid-column: 1 / -1;">
+      <span class="sec-num">§ 04</span>
+      <span class="sec-name" data-i18n="flow.eyebrow">A live workflow</span>
+    </div>
+    <h2 class="display display-lg" data-i18n="flow.title">Anatomy of a Workfloow.</h2>
+    <p class="lede workflow-sub" data-i18n="flow.sub">A representative sales flow. A new lead lands in your CRM. An agent enriches it, drafts the outreach, files the follow-up, and reports the outcome — without a human in the chain.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="wf-stage reveal">
+      <span class="wf-corner" data-i18n="flow.label">FIG. 1 · Sales outreach pipeline</span>
+      <span class="wf-corner-r" data-i18n="flow.live">Live</span>
+
+      <svg class="wf-connectors" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+        <g stroke="#E85A2B" stroke-width="1.2" fill="none" stroke-linecap="square" opacity="0.8">
+          <path d="M 160 100 L 220 100" stroke-dasharray="3 5"/>
+          <path d="M 380 100 L 440 100" stroke-dasharray="3 5"/>
+          <path d="M 600 100 L 660 100" stroke-dasharray="3 5"/>
+          <path d="M 820 100 L 880 100" stroke-dasharray="3 5"/>
+        </g>
+      </svg>
+
+      <div class="wf-row">
+        <div class="wf-node">
+          <span class="stamp">IN</span>
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M19 8v6M16 11h6"/></svg>
+          </div>
+          <div class="nm">CRM</div>
+          <div class="kn" data-i18n="node.trigger">Trigger</div>
+        </div>
+        <div class="wf-node is-ai">
+          <span class="stamp">AI</span>
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M9 2v4M15 2v4"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M9 17h6"/></svg>
+          </div>
+          <div class="nm" data-i18n="node.ai">AI Agent</div>
+          <div class="kn" data-i18n="node.enrich">Enrich · Reason</div>
+        </div>
+        <div class="wf-node">
+          <span class="stamp">OUT</span>
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+          </div>
+          <div class="nm">Email</div>
+          <div class="kn" data-i18n="node.send">Send</div>
+        </div>
+        <div class="wf-node">
+          <span class="stamp">OUT</span>
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="nm">Slack</div>
+          <div class="kn" data-i18n="node.notify">Notify</div>
+        </div>
+        <div class="wf-node">
+          <span class="stamp">LOG</span>
+          <div class="ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+          </div>
+          <div class="nm" data-i18n="node.report">Report</div>
+          <div class="kn" data-i18n="node.log">Log</div>
+        </div>
+      </div>
+
+      <div class="wf-caption">
+        <span data-i18n="flow.captionL">CRM → AI Agent → Email → Slack → Report</span>
+        <span data-i18n-html="flow.captionR"><strong>~14s per lead</strong> · unattended</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="wrap grid12">
+    <div class="section-meta" style="grid-column: 1 / -1;">
+      <span class="sec-num">§ 05</span>
+      <span class="sec-name" data-i18n="why.eyebrow">The practice</span>
+    </div>
+    <h2 class="display display-lg" data-i18n="why.title">Built for operations, not science projects.</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="why-stats">
+      <div class="stat reveal">
+        <div class="stat-cap" data-i18n="why1.cap">Implementation</div>
+        <h3 class="stat-title" data-i18n-html="why1.title">End-to-end, <em>in-house</em>.</h3>
+        <p data-i18n="why1.body">Audit, design, build, deploy and train — all from one team. No subcontracted hand-offs, no surprise vendors.</p>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-cap" data-i18n="why2.cap">Approach</div>
+        <h3 class="stat-title" data-i18n-html="why2.title">Tool-agnostic, <em>opinion-rich</em>.</h3>
+        <p data-i18n="why2.body">We don't resell software. We pick the right stack for your team and integrate what you already own.</p>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-cap" data-i18n="why3.cap">Design</div>
+        <h3 class="stat-title" data-i18n-html="why3.title">Sized to <em>return</em>.</h3>
+        <p data-i18n="why3.body">Every workflow is sized against hours saved and revenue unlocked before we write a line of code.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- (Bottom Coda removed — the hero now carries the CTA.) -->
+
+<!-- CONTACT POPUP -->
+<div id="contact-modal" style="display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center;">
+  <div id="contact-backdrop" style="position:absolute; inset:0; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px);"></div>
+  <div style="position:relative; z-index:1; background:var(--paper-lift); border:1px solid var(--rule-bold); padding:56px 48px 48px; max-width:480px; width:calc(100% - 48px);">
+    <button id="contact-close" style="position:absolute; top:20px; right:20px; background:none; border:none; color:var(--ink-quiet); font-size:22px; line-height:1; cursor:pointer; padding:4px 8px; transition:color 160ms;">×</button>
+    <p class="micro" style="margin:0 0 20px;" data-i18n="contact.eyebrow">İletişim</p>
+    <h2 style="font-family:var(--font-display); font-weight:700; font-size:clamp(1.6rem,3vw,2.4rem); letter-spacing:-0.03em; line-height:1.05; margin:0 0 12px;" data-i18n="contact.title">Konuşalım.</h2>
+    <p style="color:var(--ink-mute); font-size:15.5px; margin:0 0 36px; max-width:32ch;" data-i18n="contact.body">30 dakikalık ücretsiz bir keşif görüşmesi için bize yazın. Genellikle aynı gün yanıt veriyoruz.</p>
+    <a href="mailto:hello@workfloow.studio" class="text-link" style="font-size:clamp(1.1rem,2vw,1.5rem);">
+      <span>hello@workfloow.studio</span>
+      <span class="arr">→</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-simple" style="display:flex; align-items:baseline; justify-content:space-between; gap:32px; flex-wrap:wrap; padding:40px 0 0;">
+      <a href="#" class="mark">Workfl<span class="o"></span><span class="o"></span>w</a>
+      <span style="color:var(--ink-mute); font-size:14px;" data-i18n="foot.tagline">Your work, intelligently automated.</span>
+    </div>
+    <div class="foot-base">
+      <span data-i18n="foot.copyright">© 2026 Workfloow Practice</span>
+      <button id="open-contact" class="talk-link" style="background:none; border:none; border-bottom:1px solid var(--accent); padding-bottom:2px; font:inherit; cursor:pointer;" data-i18n="foot.contact">İletişim</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- contact modal ----------
+  const modal = document.getElementById('contact-modal');
+  const openModal = () => { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; };
+  const closeModal = () => { modal.style.display = 'none'; document.body.style.overflow = ''; };
+  document.getElementById('open-contact').addEventListener('click', openModal);
+  document.getElementById('contact-close').addEventListener('click', closeModal);
+  document.getElementById('contact-backdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Also wire nav CTA and hero CTA to modal instead of mailto directly
+  document.querySelectorAll('.talk-link[href^="mailto"]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  });
+  document.querySelectorAll('.text-link.hero-cta-link').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  });
+
+  // ---------- reveal-on-scroll ----------
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- i18n ----------
+  const dict = {
+    en: {
+      'nav.services':'Services','nav.how':'Process','nav.workflow':'Cases','nav.why':'Practice','nav.cta':'Talk to us',
+      'hero.colophon':'BRIEF № 01 / 2026 · WORKFLOOW PRACTICE',
+      'hero.metaL':'An AI workflow consultancy','hero.metaR':'Established 2024 · Available globally',
+      'hero.l1':'We connect','hero.l2':'your tools.','hero.l3':'AI does','hero.l4':'the rest.',
+      'hero.lede':"A practice that maps the work your team actually does, then builds the AI and integrations that quietly take the manual parts off your plate. We design, we ship, we hand it over.",
+      'hero.cta1':'Request a free audit','hero.cta2':'Read how we work',
+
+      'banner.1':'Process audit','banner.2':'Workflow design','banner.3':'CRM & ERP integration',
+      'banner.4':'LLM orchestration','banner.5':'Custom agents','banner.6':'Team enablement',
+
+      'problem.eyebrow':'The problem','problem.title':'Your teams are drowning in manual tasks.',
+      'pain1.title':'Disconnected tools','pain1.body':'CRM, ERP, communications, documents, dashboards — none of them talk. Every handoff is a person moving data around in their head.',
+      'pain2.title':'Repetitive manual work','pain2.body':'The same triage, the same reports, the same status updates — written by hand, every week, by people who could be doing better work.',
+      'pain3.title':'No AI strategy','pain3.body':"Pilots that never ship. Tools bought but never adopted. A board asking for an AI plan you don't have time to write.",
+      'problem.solution':'Workfloow <em class="accent">fixes this.</em>',
+
+      'svc.eyebrow':'What we do','svc.title':'Three engagements. End-to-end.',
+      'svc1.title':'AI Workflow Design','svc1.body':'We map your processes end-to-end and design intelligent automations around the work your team actually does — not the idealised version on the org chart.',
+      'svc1.t1':'Process mapping','svc1.t2':'Opportunity audit','svc1.t3':'Architecture',
+      'svc2.title':'Tool Integration','svc2.body':'Connect your CRM, ERP, communications tools and AI models into one flow. We work tool-agnostically — pick what fits, integrate what you already own.',
+      'svc2.t1':'CRM / ERP','svc2.t2':'LLM orchestration','svc2.t3':'Custom APIs',
+      'svc3.title':'Implementation & Training','svc3.body':'We build it, deploy it, train your team. Documentation, runbooks and a handover plan so the system survives the consultants leaving.',
+      'svc3.t1':'Build & deploy','svc3.t2':'Team enablement','svc3.t3':'Ongoing support',
+
+      'how.eyebrow':'The process','how.title':'Four steps.','how.sub':'Most engagements move from audit to launch in 6–12 weeks. No 18-month transformation programmes.',
+      'step1.title':'Audit','step1.body':'We sit with your team for a week, shadowing workflows, reading docs, watching screens. Output: a written brief of every workflow worth automating, ranked by ROI.','step1.meta':'Week 1 · On-site',
+      'step2.title':'Design','step2.body':"You get an architecture diagram, an ROI model, and a build plan you can sign off. We agree on what ships first, what comes later, what we don't build.",'step2.meta':'Weeks 2–3 · Remote',
+      'step3.title':'Build','step3.body':'Integrations and AI agents ship in iterations. Working demo at the end of every week. You see progress, not slides.','step3.meta':'Weeks 3–9 · Iterative',
+      'step4.title':'Launch','step4.body':'Hands-on training, runbooks, and 90 days of guarded launch with our team on call. Then you own it.','step4.meta':'Weeks 10+ · Handover',
+
+      'flow.eyebrow':'A live workflow','flow.title':'Anatomy of a Workfloow.',
+      'flow.sub':'A representative sales flow. A new lead lands in your CRM. An agent enriches it, drafts the outreach, files the follow-up, and reports the outcome — without a human in the chain.',
+      'flow.label':'FIG. 1 · Sales outreach pipeline','flow.live':'Live',
+      'node.trigger':'Trigger','node.ai':'AI Agent','node.enrich':'Enrich · Reason','node.send':'Send','node.notify':'Notify','node.report':'Report','node.log':'Log',
+      'flow.captionL':'CRM → AI Agent → Email → Slack → Report','flow.captionR':'<strong>~14s per lead</strong> · unattended',
+
+      'why.eyebrow':'The practice','why.title':'Built for operations, not science projects.',
+      'why1.cap':'Implementation','why1.title':'End-to-end, <em>in-house</em>.','why1.body':'Audit, design, build, deploy and train — all from one team. No subcontracted hand-offs, no surprise vendors.',
+      'why2.cap':'Approach','why2.title':'Tool-agnostic, <em>opinion-rich</em>.','why2.body':"We don't resell software. We pick the right stack for your team and integrate what you already own.",
+      'why3.cap':'Design','why3.title':'Sized to <em>return</em>.','why3.body':'Every workflow is sized against hours saved and revenue unlocked before we write a line of code.',
+
+      'coda.eyebrow':'§ Coda','cta.title':'Ready to automate <em class="accent">your workflow?</em>','cta.btn':'Book a discovery call',
+      'coda.sig1':'30 minutes · free','coda.sig2':'hello@workfloow.studio',
+
+      'foot.tagline':'Your work, intelligently automated.',
+      'foot.col1':'Practice','foot.services':'Services','foot.how':'Process','foot.flows':'Cases','foot.why':'Approach',
+      'foot.col2':'Studio','foot.about':'About','foot.careers':'Careers','foot.cases':'Field notes','foot.contact':'Contact',
+      'foot.col3':'Reading','foot.guide':'AI readiness guide','foot.catalog':'Integration catalog','foot.blog':'Journal','foot.privacy':'Privacy',
+      'foot.copyright':'© 2026 Workfloow Practice',
+      'foot.contact':'Contact',
+      'contact.eyebrow':'Contact','contact.title':"Let's talk.",'contact.body':"Write to us for a free 30-minute discovery call. We usually respond the same day."
+    },
+    tr: {
+      'nav.services':'Hizmetler','nav.how':'Süreç','nav.workflow':'Vakalar','nav.why':'Yaklaşım','nav.cta':'Bize ulaş',
+      'hero.colophon':'BRIEF № 01 / 2026 · WORKFLOOW PRACTICE',
+      'hero.metaL':'Bir AI iş akışı danışmanlığı','hero.metaR':'2024 kuruluş · Global hizmet',
+      'hero.l1':'Araçlarınızı','hero.l2':'biz bağlarız.','hero.l3':'Gerisini AI','hero.l4':'halleder.',
+      'hero.lede':"Ekibinizin gerçekten yaptığı işi haritalandırır; manuel kısımları sessizce devralacak AI'yı ve entegrasyonları kurarız. Tasarlarız, devreye alırız, size devrederiz.",
+      'hero.cta1':'Ücretsiz analiz al','hero.cta2':'Nasıl çalıştığımızı oku',
+
+      'banner.1':'Süreç analizi','banner.2':'İş akışı tasarımı','banner.3':'CRM & ERP entegrasyonu',
+      'banner.4':'LLM orkestrasyonu','banner.5':'Özel ajanlar','banner.6':'Ekip yetkinlendirme',
+
+      'problem.eyebrow':'Problem','problem.title':'Ekipleriniz manuel işlerde boğuluyor.',
+      'pain1.title':'Kopuk araçlar','pain1.body':'CRM, ERP, iletişim, dokümanlar, panolar — hiçbiri birbiriyle konuşmuyor. Her devir tesliminde verileri kafasında taşıyan bir insan var.',
+      'pain2.title':'Tekrarlayan manuel iş','pain2.body':'Aynı sınıflandırma, aynı raporlar, aynı durum güncellemeleri — her hafta elle yazılıyor; oysa o zamanı çok daha değerli işlere ayırabilirsiniz.',
+      'pain3.title':'AI stratejisi yok','pain3.body':'Hiç yayına alınmayan pilotlar. Satın alınmış ama benimsenmemiş araçlar. Yönetimden gelen ve yazmaya vaktinizin olmadığı bir AI planı talebi.',
+      'problem.solution':'Workfloow <em class="accent">bunu çözer.</em>',
+
+      'svc.eyebrow':'Ne yaparız','svc.title':'Üç başlık. Uçtan uca.',
+      'svc1.title':'AI İş Akışı Tasarımı','svc1.body':'Süreçlerinizi uçtan uca haritalandırır, ekibinizin gerçekten yaptığı işe göre — organizasyon şemasındaki ideal versiyona değil — akıllı otomasyonlar tasarlarız.',
+      'svc1.t1':'Süreç haritalama','svc1.t2':'Fırsat analizi','svc1.t3':'Mimari',
+      'svc2.title':'Araç Entegrasyonu','svc2.body':'CRM, ERP, iletişim araçlarınız ve AI modellerini tek bir akışta birleştiririz. Araç bağımsızıyız — size uygun olanı seçer, elinizdekiyle entegre ederiz.',
+      'svc2.t1':'CRM / ERP','svc2.t2':'LLM orkestrasyonu','svc2.t3':'Özel API\'ler',
+      'svc3.title':'Uygulama ve Eğitim','svc3.body':'Sistemi kurar, devreye alır, ekibinizi eğitiriz. Dokümantasyon, çalıştırma kılavuzları ve devir planıyla danışmanlar gittiğinde sistem ayakta kalır.',
+      'svc3.t1':'Kurulum & canlıya alma','svc3.t2':'Ekip yetkinlendirme','svc3.t3':'Sürekli destek',
+
+      'how.eyebrow':'Süreç','how.title':'Dört adım.','how.sub':'Çoğu proje analizden lansmana 6–12 hafta içinde ilerler. 18 aylık dönüşüm programları değil.',
+      'step1.title':'Analiz','step1.body':'Bir hafta boyunca ekibinizle çalışırız; iş akışlarını izler, dokümanları okur, ekranlara bakarız. Çıktı: ROI sırasına göre, otomasyona değer her iş akışının yazılı brief\'i.','step1.meta':'1. Hafta · Yerinde',
+      'step2.title':'Tasarım','step2.body':'Onaylayabileceğiniz bir mimari şema, ROI modeli ve geliştirme planı teslim ederiz. Önce ne yayına alınır, sonra ne gelir, neyi yapmıyoruz — anlaşırız.','step2.meta':'2–3. Hafta · Uzaktan',
+      'step3.title':'Geliştirme','step3.body':'Entegrasyonlar ve AI ajanları iteratif şekilde geliştirilir. Her hafta sonunda çalışan demo. Slayt değil, ilerleme görürsünüz.','step3.meta':'3–9. Hafta · İteratif',
+      'step4.title':'Lansman','step4.body':'Uygulamalı eğitim, çalıştırma kılavuzları ve ekibimizin nöbet tuttuğu 90 günlük korumalı lansman. Sonrası sizin.','step4.meta':'10+. Hafta · Devir',
+
+      'flow.eyebrow':'Canlı bir iş akışı','flow.title':'Bir Workfloow\'un anatomisi.',
+      'flow.sub':'Temsili bir satış akışı. Yeni bir lead CRM\'inize düşer. Bir ajan zenginleştirir, mesajı taslaklar, takibi kaydeder ve sonucu raporlar — hiçbir aşamada insan yok.',
+      'flow.label':'ŞEK. 1 · Satış outreach hattı','flow.live':'Canlı',
+      'node.trigger':'Tetikleyici','node.ai':'AI Ajanı','node.enrich':'Zenginleştir · Çıkarım','node.send':'Gönder','node.notify':'Bildir','node.report':'Rapor','node.log':'Kayıt',
+      'flow.captionL':'CRM → AI Ajanı → E-posta → Slack → Rapor','flow.captionR':'<strong>Lead başına ~14sn</strong> · tamamen otomatik',
+
+      'why.eyebrow':'Yaklaşım','why.title':'Bilim projeleri için değil, operasyonlar için kurulmuştur.',
+      'why1.cap':'Uygulama','why1.title':'Uçtan uca, <em>in-house</em>.','why1.body':'Analiz, tasarım, geliştirme, devreye alma ve eğitim — hepsi tek bir ekipten. Taşeronlu devir teslim yok, sürpriz vendor yok.',
+      'why2.cap':'Yaklaşım','why2.title':'Araç-bağımsız, <em>fikir-zengini</em>.','why2.body':'Yazılım satmıyoruz. Ekibinize uygun teknoloji yığınını seçer ve elinizdekiyle entegre ederiz.',
+      'why3.cap':'Tasarım','why3.title':'<em>Getiriyle</em> boyutlanmış.','why3.body':'Her iş akışı, tek satır kod yazılmadan önce kazanılan saatler ve elde edilecek gelir üzerinden boyutlandırılır.',
+
+      'coda.eyebrow':'§ Coda','cta.title':'<em class="accent">İş akışınızı</em> otomatikleştirmeye hazır mısınız?','cta.btn':'Keşif görüşmesi planla',
+      'coda.sig1':'30 dakika · ücretsiz','coda.sig2':'hello@workfloow.studio',
+
+      'foot.tagline':'İşiniz, akıllıca otomatikleşmiş.',
+      'foot.col1':'Pratik','foot.services':'Hizmetler','foot.how':'Süreç','foot.flows':'Vakalar','foot.why':'Yaklaşım',
+      'foot.col2':'Stüdyo','foot.about':'Hakkımızda','foot.careers':'Kariyer','foot.cases':'Saha notları','foot.contact':'İletişim',
+      'foot.col3':'Okuma','foot.guide':'AI hazırlık rehberi','foot.catalog':'Entegrasyon kataloğu','foot.blog':'Günce','foot.privacy':'Gizlilik',
+      'foot.copyright':'© 2026 Workfloow Practice',
+      'foot.contact':'İletişim',
+      'contact.eyebrow':'İletişim','contact.title':'Konuşalım.','contact.body':'30 dakikalık ücretsiz bir keşif görüşmesi için bize yazın. Genellikle aynı gün yanıt veriyoruz.'
+    }
+  };
+
+  function applyLang(lang) {
+    const d = dict[lang] || dict.en;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n'); if (d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const k = el.getAttribute('data-i18n-html'); if (d[k] != null) el.innerHTML = d[k];
+    });
+    document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-lang') === lang));
+    try { localStorage.setItem('wf-lang', lang); } catch(e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => applyLang(b.getAttribute('data-lang'))));
+  const saved = (() => { try { return localStorage.getItem('wf-lang'); } catch(e) { return null; } })();
+  applyLang(saved || 'tr');
+</script>
+
+</body>
+</html>

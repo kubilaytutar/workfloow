@@ -1,0 +1,425 @@
+/* ============================================================
+   Leonardo.Ai — Colors & Type
+   Colors are modelled as PRIMITIVES (raw scales) and SEMANTICS
+   (intent tokens that alias the primitives). When you design or
+   write code you should reach for semantic tokens; primitives are
+   the raw material those tokens are built from.
+
+   Source: Leonardo Figma libraries "04_Primitive Colours" and
+   "03_Semantic Colours" (exported 2024).
+   ============================================================ */
+
+/* -------- Fonts -------- */
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-RegularItalic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-MediumItalic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Canva Sans'; src: url('./fonts/CanvaSans-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Canva Sans Display'; src: url('./fonts/CanvaSansDisplay-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Canva Sans Display'; src: url('./fonts/CanvaSansDisplay-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Canva Sans Display'; src: url('./fonts/CanvaSansDisplay-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+:root {
+	/* ============================================================
+	   PRIMITIVES · raw colour scales
+	   Each family runs 50 → 950. 500 is the "base" stop.
+	   Use primitives only when a semantic token does not exist
+	   for your use case. ============================================================ */
+
+	/* Purple — brand hue */
+	--purple-50:  #F0EFFD; --purple-100: #E1E0FC; --purple-200: #C4C1F9;
+	--purple-300: #A8A2F6; --purple-400: #7C71F7; --purple-500: #6E60EE;
+	--purple-600: #523BE7; --purple-700: #4129C1; --purple-800: #28158F;
+	--purple-900: #16095B; --purple-950: #0D0540;
+
+	/* Lime — primary accent */
+	--lime-50:  #F7FEF5; --lime-100: #E5FDDF; --lime-200: #D2FCC6;
+	--lime-300: #B1FB98; --lime-400: #97FA6D; --lime-500: #8FF362;
+	--lime-600: #6FBE4B; --lime-700: #4F8A34; --lime-800: #335C20;
+	--lime-900: #18300D; --lime-950: #0D1E06;
+
+	/* Cherry — secondary accent */
+	--cherry-50:  #FEF0F3; --cherry-100: #FDE1E7; --cherry-200: #FBBFCD;
+	--cherry-300: #FA9EB6; --cherry-400: #F97A9F; --cherry-500: #F84A87;
+	--cherry-600: #D41F69; --cherry-700: #A0144E; --cherry-800: #6E0B34;
+	--cherry-900: #44041D; --cherry-950: #2E0212;
+
+	/* Yellow — tertiary accent / warning */
+	--yellow-50:  #FFFCF6; --yellow-100: #FFF6E2; --yellow-200: #FFEFCC;
+	--yellow-300: #FFE6A7; --yellow-400: #FFE088; --yellow-500: #FFD84D;
+	--yellow-600: #CBA800; --yellow-700: #937A00; --yellow-800: #635100;
+	--yellow-900: #332900; --yellow-950: #201900;
+
+	/* Red — negative / destructive */
+	--red-50:  #FEF0F1; --red-100: #FDDEDE; --red-200: #FBC0C1;
+	--red-300: #FA9D9D; --red-400: #F9797B; --red-500: #F84A4D;
+	--red-600: #D61D23; --red-700: #A01317; --red-800: #720A0D;
+	--red-900: #430305; --red-950: #300202;
+
+	/* Green — positive / success */
+	--green-50:  #D2FEE3; --green-100: #A9FDCC; --green-200: #4BEFA0;
+	--green-300: #43DA91; --green-400: #3BC180; --green-500: #33AB71;
+	--green-600: #268758; --green-700: #1B6642; --green-800: #0F442A;
+	--green-900: #052717; --green-950: #02170C;
+
+	/* Navy — information / notification */
+	--navy-50:  #F3F6FF; --navy-100: #E3EBFF; --navy-200: #C9DAFF;
+	--navy-300: #AAC7FF; --navy-400: #8CB7FF; --navy-500: #64A5FF;
+	--navy-600: #0083E7; --navy-700: #0060AB; --navy-800: #004177;
+	--navy-900: #002243; --navy-950: #00162F;
+
+	/* Teal — Flow State accent */
+	--teal-50:  #F3FAFF; --teal-100: #E6F6FF; --teal-200: #CCEDFF;
+	--teal-300: #AEE5FF; --teal-400: #8BDCFF; --teal-500: #5BD4FF;
+	--teal-600: #00A9D1; --teal-700: #007C9B; --teal-800: #005268;
+	--teal-900: #002C39; --teal-950: #001B23;
+
+	/* Violet — tier accent (Teams plan) */
+	--violet-50:  #F8EDFB; --violet-100: #F3DFF8; --violet-200: #E7BAF1;
+	--violet-300: #DD98EB; --violet-400: #D372E5; --violet-500: #C14DD4;
+	--violet-600: #9B3CAB; --violet-700: #752B81; --violet-800: #501B59;
+	--violet-900: #320E37; --violet-950: #1F0623;
+
+	/* Neutral — greyscale */
+	--neutral-50:  #FAFAFA; --neutral-100: #F5F5F5; --neutral-200: #E5E5E5;
+	--neutral-300: #D4D4D4; --neutral-400: #A1A1A1; --neutral-500: #737373;
+	--neutral-600: #525252; --neutral-700: #404040; --neutral-800: #262626;
+	--neutral-900: #171717; --neutral-950: #0A0A0A;
+
+	/* Static */
+	--white: #FFFFFF;
+	--black: #000000;
+
+	/* Alpha primitives — transparency scales applied to neutrals and key hues */
+	--alpha-neutral-d100: rgba(10, 10, 10, 1);
+	--alpha-neutral-d90:  rgba(10, 10, 10, 0.90);
+	--alpha-neutral-d80:  rgba(10, 10, 10, 0.80);
+	--alpha-neutral-d70:  rgba(10, 10, 10, 0.70);
+	--alpha-neutral-d60:  rgba(10, 10, 10, 0.60);
+	--alpha-neutral-d50:  rgba(10, 10, 10, 0.50);
+	--alpha-neutral-d40:  rgba(10, 10, 10, 0.40);
+	--alpha-neutral-d30:  rgba(10, 10, 10, 0.30);
+	--alpha-neutral-d20:  rgba(10, 10, 10, 0.20);
+	--alpha-neutral-d15:  rgba(10, 10, 10, 0.15);
+	--alpha-neutral-d10:  rgba(10, 10, 10, 0.10);
+	--alpha-neutral-d5:   rgba(10, 10, 10, 0.05);
+
+	--alpha-neutral-l100: rgba(250, 250, 250, 1);
+	--alpha-neutral-l90:  rgba(250, 250, 250, 0.90);
+	--alpha-neutral-l80:  rgba(250, 250, 250, 0.80);
+	--alpha-neutral-l70:  rgba(250, 250, 250, 0.70);
+	--alpha-neutral-l60:  rgba(250, 250, 250, 0.60);
+	--alpha-neutral-l50:  rgba(250, 250, 250, 0.50);
+	--alpha-neutral-l40:  rgba(250, 250, 250, 0.40);
+	--alpha-neutral-l30:  rgba(250, 250, 250, 0.30);
+	--alpha-neutral-l20:  rgba(250, 250, 250, 0.20);
+	--alpha-neutral-l15:  rgba(250, 250, 250, 0.15);
+	--alpha-neutral-l10:  rgba(250, 250, 250, 0.10);
+	--alpha-neutral-l5:   rgba(250, 250, 250, 0.05);
+
+	--alpha-purple-5:   rgba(110, 96, 238, 0.05);
+	--alpha-purple-10:  rgba(110, 96, 238, 0.10);
+	--alpha-purple-15:  rgba(110, 96, 238, 0.15);
+	--alpha-purple-20:  rgba(110, 96, 238, 0.20);
+	--alpha-purple-30:  rgba(110, 96, 238, 0.30);
+	--alpha-purple-50:  rgba(110, 96, 238, 0.50);
+
+	--alpha-lime-10:    rgba(143, 243, 98, 0.10);
+	--alpha-lime-20:    rgba(143, 243, 98, 0.20);
+	--alpha-lime-30:    rgba(143, 243, 98, 0.30);
+
+	--alpha-cherry-10:  rgba(248, 74, 135, 0.10);
+	--alpha-cherry-20:  rgba(248, 74, 135, 0.20);
+
+	/* ============================================================
+	   SEMANTICS · intent tokens
+	   These are what you reach for when designing or coding a
+	   component. They are theme-aware (dark theme values here)
+	   and alias primitives. ============================================================ */
+
+	/* ─── Foreground · text & icons ─── */
+	--fg-primary:              var(--neutral-50);   /* default text */
+	--fg-secondary:            var(--neutral-300);  /* subtext */
+	--fg-tertiary:             var(--neutral-400);  /* meta, captions */
+	--fg-disabled:             var(--neutral-500);  /* disabled labels */
+	--fg-primary-inverse:      var(--neutral-950);  /* text on light fills */
+	--fg-static-black:         var(--black);        /* locked to dark in both themes */
+	--fg-static-white:         var(--white);        /* locked to light in both themes */
+
+	/* ─── Foreground · status ─── */
+	--fg-positive:             var(--green-400);
+	--fg-negative:             var(--red-400);
+	--fg-warning:              var(--yellow-400);
+	--fg-notification:         var(--navy-400);
+
+	/* ─── Foreground · brand & accent ─── */
+	--fg-brand:                var(--purple-500);   /* primary brand purple */
+	--fg-brand-light:          var(--purple-300);   /* text links */
+	--fg-accent:               var(--lime-500);     /* primary accent */
+	--fg-accent-light:         var(--lime-300);
+	--fg-accent-secondary:     var(--cherry-500);   /* secondary accent */
+	--fg-accent-secondary-light: var(--cherry-300);
+	--fg-accent-tertiary:      var(--yellow-500);   /* tertiary accent */
+	--fg-accent-tertiary-light: var(--yellow-300);
+
+	/* ─── Border ─── */
+	--border-primary:          var(--neutral-700);  /* buttons, inputs, modals, cards */
+	--border-secondary:        var(--neutral-800);  /* panels */
+	--border-tertiary:         var(--neutral-400);  /* placeholder */
+	--border-primary-inverse:  var(--neutral-50);
+	--border-selected:         var(--purple-400);
+	--border-focus:            var(--purple-200);
+	--border-hover:            var(--alpha-neutral-l50);
+	--border-notification:     var(--navy-400);
+	--border-warning:          var(--yellow-400);
+	--border-positive:         var(--green-400);
+	--border-negative:         var(--red-400);
+
+	/* ─── Surface · page & containers ─── */
+	--surface-background:      var(--neutral-950);  /* page */
+	--surface-primary:         var(--neutral-800);  /* cards, primary containers */
+	--surface-secondary:       var(--neutral-900);  /* popover holder */
+	--surface-tertiary:        var(--neutral-700);
+	--surface-mute:            var(--alpha-neutral-l5);    /* grouped subsections */
+
+	/* ─── Surface · inputs & controls ─── */
+	--surface-input:           var(--alpha-neutral-l10);
+	--surface-input-hover:     var(--alpha-neutral-l20);
+	--surface-input-active:    var(--alpha-neutral-l15);
+	--surface-input-disable:   var(--alpha-neutral-l5);
+	--surface-active:          var(--alpha-purple-15); /* button active state */
+	--surface-disabled:        var(--neutral-800);
+	--surface-highlight:       var(--lime-500);
+
+	/* ─── Surface · status (light / base / strong) ─── */
+	--surface-positive-light:  var(--green-500);
+	--surface-positive:        var(--green-600);
+	--surface-positive-strong: var(--green-700);
+	--surface-negative-light:  var(--red-500);
+	--surface-negative:        var(--red-600);
+	--surface-negative-strong: var(--red-700);
+	--surface-warning-light:   var(--yellow-500);
+	--surface-warning:         var(--yellow-600);
+	--surface-warning-strong:  var(--yellow-700);
+	--surface-info-light:      var(--navy-500);
+	--surface-info:            var(--navy-600);
+	--surface-info-strong:     var(--navy-700);
+	--surface-notification:    var(--navy-400);
+
+	/* ─── Surface · accent (default / hover / pressed) ─── */
+	--surface-accent-lime:         var(--lime-500);
+	--surface-accent-lime-pressed: var(--lime-600);
+	--surface-accent-lime-hover:   var(--lime-700);
+	--surface-accent-purple:         var(--purple-500);
+	--surface-accent-purple-pressed: var(--purple-600);
+	--surface-accent-purple-hover:   var(--purple-700);
+	--surface-accent-cherry:         var(--cherry-500);
+	--surface-accent-yellow:         var(--yellow-500);
+	--surface-accent-teal:           var(--teal-500);
+
+	/* ─── Surface · alpha overlays ─── */
+	--surface-alpha-dark-80:   var(--alpha-neutral-d80);  /* modal scrim */
+	--surface-alpha-dark-50:   var(--alpha-neutral-d50);
+	--surface-alpha-dark-30:   var(--alpha-neutral-d30);  /* image scrim */
+	--surface-alpha-light-20:  var(--alpha-neutral-l20);
+	--surface-alpha-light-10:  var(--alpha-neutral-l10);
+	--surface-alpha-light-5:   var(--alpha-neutral-l5);
+
+	/* ============================================================
+	   LEGACY ALIASES
+	   A handful of older tokens still referenced by preview files.
+	   Prefer the semantic tokens above in new work. ============================================================ */
+	--surface-base:        var(--surface-background);
+	--surface-raised:      var(--surface-primary);
+	--surface-overlay:     var(--surface-secondary);
+	--surface-sunken:      #050505;
+	--surface-muted:       var(--surface-primary);
+	--surface-subtle:      var(--surface-primary);
+	--surface-hover:       var(--surface-input-hover);
+	--surface-selected:    var(--alpha-purple-15);
+	--surface-brand:       var(--purple-500);
+	--surface-brand-hover: var(--purple-400);
+	--surface-brand-active:var(--purple-600);
+	--surface-inverse:     var(--neutral-50);
+	--fg-quaternary:       var(--fg-disabled);
+	--fg-on-brand:         var(--white);
+	--fg-on-white:         var(--neutral-950);
+	--fg-inverse:          var(--fg-primary-inverse);
+	--fg-link:              var(--fg-brand-light);
+	--fg-accent-primary:   var(--fg-brand);
+	--fg-highlight:        var(--purple-300);
+	--alpha-hover-sm:      var(--alpha-neutral-l5);
+	--alpha-hover-md:      var(--alpha-neutral-l10);
+	--alpha-hover-lg:      var(--alpha-neutral-l20);
+	--alpha-pressed:       var(--alpha-neutral-l15);
+	--alpha-selected:      var(--alpha-purple-15);
+	--alpha-border-sm:     var(--alpha-neutral-l10);
+	--alpha-border-md:     var(--alpha-neutral-l20);
+	--alpha-border-lg:     var(--alpha-neutral-l30);
+	--alpha-divider:       var(--alpha-neutral-l10);
+	--alpha-scrim-light:   var(--alpha-neutral-d40);
+	--alpha-scrim-dark:    var(--alpha-neutral-d70);
+	--alpha-glass-base:    var(--alpha-neutral-d70);
+	--alpha-glass-raised:  var(--alpha-neutral-d80);
+	--alpha-brand-soft:    var(--alpha-purple-20);
+	--alpha-positive-soft: var(--alpha-lime-20);
+	--alpha-warning-soft:  rgba(255,216,77,0.20);
+	--alpha-negative-soft: var(--alpha-cherry-20);
+	--accent-lime:    var(--lime-500);
+	--accent-green:   var(--green-500);
+	--accent-blue:    var(--navy-500);
+	--accent-purple:  var(--purple-500);
+	--accent-cyan:    var(--teal-500);
+	--accent-yellow:  var(--yellow-500);
+	--accent-red:     var(--red-500);
+	--accent-pink:    var(--cherry-500);
+	--accent-magenta: var(--violet-500);
+	--accent-apprentice: var(--navy-500);
+	--accent-artisan:    var(--purple-600);
+	--accent-maestro:    var(--violet-500);
+	--accent-lightning:  var(--teal-500);
+	--background:       var(--surface-background);
+	--panel:            var(--surface-primary);
+	--popover:          var(--surface-secondary);
+	--muted:            var(--surface-primary);
+	--hover:            var(--surface-input-hover);
+	--active:           var(--surface-active);
+	--brand:            var(--surface-brand);
+	--brand-light:      var(--surface-brand-hover);
+	--brand-strong:     var(--surface-brand-active);
+	--brand-foreground: var(--fg-on-brand);
+	--ring:             var(--purple-400);
+	--focus:            var(--border-focus);
+	--positive:        var(--surface-positive);
+	--positive-light:  var(--surface-positive-light);
+	--positive-strong: var(--surface-positive-strong);
+	--negative:        var(--surface-negative);
+	--negative-light:  var(--surface-negative-light);
+	--negative-strong: var(--surface-negative-strong);
+	--warning:         var(--surface-warning);
+	--info:            var(--surface-info);
+	--notification:    var(--surface-notification);
+	--input:           var(--surface-input);
+	--input-hover:     var(--surface-input-hover);
+	--input-disabled:  var(--surface-input-disable);
+
+	/* ===================== GRADIENTS ===================== */
+	--gradient-primary: linear-gradient(81.24deg, var(--purple-700) 13.83%, var(--purple-500) 49.5%, var(--purple-400) 85.32%);
+	--gradient-primary-light: linear-gradient(81.24deg, var(--purple-500) 13.83%, var(--purple-400) 49.5%, var(--purple-300) 85.32%);
+	--gradient-primary-strong: linear-gradient(81.24deg, var(--purple-800) 13.83%, var(--purple-700) 49.5%, var(--purple-500) 85.32%);
+	--gradient-bg-dark: linear-gradient(110deg, var(--neutral-950) 0%, var(--neutral-900) 100%);
+	--gradient-lightning: linear-gradient(180deg, var(--navy-500) 0%, var(--teal-400) 100%);
+	--gradient-artisan: linear-gradient(170.86deg, var(--purple-950) 0.63%, var(--neutral-950) 60%);
+	--gradient-maestro: linear-gradient(170.86deg, var(--violet-950) 0.63%, var(--neutral-950) 60%);
+	--gradient-legacy-brand: linear-gradient(81deg, #FA5560 -23%, #B14BF4 45%, #4D91FF 114%);
+	--glass: linear-gradient(170deg, var(--alpha-glass-base) 0%, var(--alpha-glass-raised) 100%);
+
+	/* ===================== SHADOWS ===================== */
+	--shadow-glow:  0 0 16px 0 var(--alpha-purple-30);
+	--shadow-card:  0 4px 4px 0 var(--alpha-neutral-d30);
+	--shadow-panel: 0 0 8px 0 rgba(128,128,128,0.3);
+	--shadow-focus: 0 0 0 4px var(--alpha-purple-30);
+
+	/* ===================== RADII =====================
+	   Chakra-UI scale used across Leonardo app. */
+	--radius-none: 0;
+	--radius-sm:   0.125rem;   /*  2px */
+	--radius-base: 0.25rem;    /*  4px */
+	--radius-md:   0.375rem;   /*  6px */
+	--radius-lg:   0.5rem;     /*  8px */
+	--radius-xl:   0.625rem;   /* 10px */
+	--radius-2xl:  0.75rem;    /* 12px */
+	--radius-3xl:  1rem;       /* 16px */
+	--radius-4xl:  1.5rem;     /* 24px */
+	--radius-circle: 1000px;
+
+	/* ===================== GLASS =====================
+	   Semi-transparent surface used for sidebars, docks, overlays.
+	   Figma: Glass_Background · Glass_Stroke · Glass_Blur(80). */
+	--glass-background: linear-gradient(
+		180deg,
+		rgba(10, 10, 10, 0.75) 0%,
+		rgba(37, 37, 37, 0.65) 100%
+	);
+	--glass-stroke: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.40) 0%,
+		rgba(61, 61, 61, 0.30) 20%,
+		rgba(61, 61, 61, 0.30) 80%,
+		rgba(255, 255, 255, 0.40) 100%
+	);
+	--glass-blur: 80px;
+
+	/* ===================== SPACING ===================== */
+	--space-0_5: 0.125rem; --space-1: 0.25rem; --space-1_5: 0.375rem; --space-2: 0.5rem;
+	--space-2_5: 0.625rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+	--space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+	--space-16: 4rem; --space-20: 5rem;
+
+	/* ===================== BREAKPOINTS ===================== */
+	--bp-sm: 320px; --bp-md: 768px; --bp-lg: 925px; --bp-xl: 1280px;
+
+	/* ===================== TYPOGRAPHY ===================== */
+	--font-display: 'Canva Sans Display', 'Canva Sans', ui-sans-serif, system-ui, sans-serif;
+	--font-body:    'Canva Sans', ui-sans-serif, system-ui, sans-serif;
+	--font-mono:    ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+	--text-xs: 0.75rem;   --text-xs-lh: 1rem;
+	--text-sm: 0.875rem;  --text-sm-lh: 1.25rem;
+	--text-base: 1rem;    --text-base-lh: 1.5rem;
+	--text-lg: 1.125rem;  --text-lg-lh: 1.875rem;
+	--text-heading-xs: 1.25rem; --text-heading-xs-lh: 2rem;
+	--text-heading-sm: 1.5rem;  --text-heading-sm-lh: 2.125rem;
+	--text-heading-md: 1.75rem; --text-heading-md-lh: 2.5rem;
+	--text-heading-lg: 2rem;    --text-heading-lg-lh: 2.875rem;
+	--text-heading-xl: 2.25rem; --text-heading-xl-lh: 3.25rem;
+
+	--fw-normal: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+	--z-dialog: 1400; --z-popover: 1500; --z-tooltip: 1800;
+}
+
+/* ===================== GLOBAL ===================== */
+html, body {
+	background: var(--surface-base);
+	color: var(--fg-primary);
+	font-family: var(--font-body);
+	font-size: 16px;
+	line-height: var(--text-base-lh);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+.h1, h1.leo, .h2, h2.leo, .h3, h3.leo, .h4, h4.leo, .h5, h5.leo {
+	font-family: var(--font-display);
+	font-weight: var(--fw-bold);
+	color: var(--fg-primary);
+	letter-spacing: -0.01em;
+	margin: 0;
+}
+.h1, h1.leo { font-size: var(--text-heading-xl); line-height: var(--text-heading-xl-lh); }
+.h2, h2.leo { font-size: var(--text-heading-lg); line-height: var(--text-heading-lg-lh); }
+.h3, h3.leo { font-size: var(--text-heading-md); line-height: var(--text-heading-md-lh); }
+.h4, h4.leo { font-size: var(--text-heading-sm); line-height: var(--text-heading-sm-lh); font-weight: var(--fw-semibold); }
+.h5, h5.leo { font-size: var(--text-heading-xs); line-height: var(--text-heading-xs-lh); font-weight: var(--fw-semibold); }
+
+.display-hero {
+	font-family: var(--font-display); font-weight: var(--fw-bold);
+	font-size: clamp(2.5rem, 6vw, 5.625rem); line-height: 1.05; letter-spacing: -0.02em;
+}
+
+.body-lg  { font-size: var(--text-lg);   line-height: var(--text-lg-lh); }
+.body     { font-size: var(--text-base); line-height: var(--text-base-lh); }
+.body-sm  { font-size: var(--text-sm);   line-height: var(--text-sm-lh); }
+.caption  { font-size: var(--text-xs);   line-height: var(--text-xs-lh); color: var(--fg-tertiary); }
+.mono     { font-family: var(--font-mono); font-size: var(--text-sm); }
+
+.text-gradient-brand {
+	background: var(--gradient-primary);
+	background-clip: text; -webkit-background-clip: text; color: transparent;
+}
+
+.fg-primary   { color: var(--fg-primary); }
+.fg-secondary { color: var(--fg-secondary); }
+.fg-tertiary  { color: var(--fg-tertiary); }
+.fg-disabled  { color: var(--fg-quaternary); }
